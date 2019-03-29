@@ -24,6 +24,7 @@ node {
     {
       script {
         echo "Test"
+        bundle exec rspec spec
       }
     }
 
