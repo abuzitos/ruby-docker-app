@@ -1,42 +1,44 @@
 pipeline {
-  agent {
-       docker { image 'abu-projeto/ruby-docker-app:latest' }
-   }
-    stage('Initialize')
-    {
-      script {
-        echo "Initialize"
-        sh "docker build ."
+    agent {
+      docker { image 'abu-projeto/ruby-docker-app:latest' }
+     }
+    stages {
+      stage('Initialize')
+      {
+        script {
+          echo "Initialize"
+          sh "docker build ."
+        }
       }
-    }
 
-    stage('Checkout')
-    {
-      script {
-        echo "Checkout"
+      stage('Checkout')
+      {
+        script {
+          echo "Checkout"
+        }
       }
-    }
 
-    stage('Build')
-    {
-      script {
-        echo "Build"
-        sh "docker run ruby-app"
+      stage('Build')
+      {
+        script {
+          echo "Build"
+          sh "docker run ruby-app"
+        }
       }
-    }
 
-    stage('Test')
-    {
-      script {
-        echo "Test"
-        bundle exec rspec spec
+      stage('Test')
+      {
+        script {
+          echo "Test"
+          bundle exec rspec spec
+        }
       }
-    }
 
-    stage('Deliver')
-    {
-      script {
-        echo "Deliver"
+      stage('Deliver')
+      {
+        script {
+          echo "Deliver"
+        }
       }
     }
 }
