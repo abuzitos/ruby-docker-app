@@ -1,6 +1,6 @@
 pipeline {
     agent {
-      docker { image 'abu-projeto/ruby-docker-app:latest' }
+      dockerfile true
      }
     stages {
       stage('Initialize')
