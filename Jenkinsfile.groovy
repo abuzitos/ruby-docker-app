@@ -1,4 +1,4 @@
-node{
+node(''){
   stage 'buildInDevelopment'
   openshiftBuild(namespace: 'development', buildConfig: 'ruby-docker-app', showBuildLogs: 'true')
 
