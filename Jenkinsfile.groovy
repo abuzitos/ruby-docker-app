@@ -5,40 +5,30 @@ pipeline {
     stages {
       stage('Initialize')
       {
-        script {
-          echo "Initialize"
+          sh "echo 'Initialize'"
           sh "docker build ."
-        }
       }
 
       stage('Checkout')
       {
-        script {
-          echo "Checkout"
-        }
+          sh "echo 'Checkout'"
       }
 
       stage('Build')
       {
-        script {
-          echo "Build"
+          sh "echo 'Build'"
           sh "docker run ruby-app"
-        }
       }
 
       stage('Test')
       {
-        script {
-          echo "Test"
-          bundle exec rspec spec
-        }
+          sh "echo 'Test'"
+          sh "bundle exec rspec spec"
       }
 
       stage('Deliver')
       {
-        script {
-          echo "Deliver"
-        }
+          sh "echo 'Deliver'"
       }
     }
 }
