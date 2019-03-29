@@ -3,7 +3,7 @@ node {
     {
       script {
         echo "Initialize"
-        docker build .
+        sh "docker build ."
       }
     }
 
@@ -18,7 +18,7 @@ node {
     {
       script {
         echo "Build"
-        docker run ruby-app  
+        sh "docker run ruby-app"  
       }
     }
 
