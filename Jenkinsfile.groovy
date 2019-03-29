@@ -1,5 +1,7 @@
 pipeline {
-  agent { docker { image 'ruby:2.5' } }
+  agent {
+    label 'docker'
+  }
   stages {
     stage('requirements') {
       steps {
