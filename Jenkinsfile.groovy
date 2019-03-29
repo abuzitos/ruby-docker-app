@@ -1,4 +1,4 @@
-node {
+pipeline {
   agent {
        docker { image 'abu-projeto/ruby-docker-app:latest' }
    }
