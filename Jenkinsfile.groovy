@@ -1,4 +1,7 @@
 node {
+  agent {
+       docker { image 'abu-projeto/ruby-docker-app:latest' }
+   }
     stage('Initialize')
     {
       script {
@@ -18,7 +21,7 @@ node {
     {
       script {
         echo "Build"
-        sh "docker run ruby-app"  
+        sh "docker run ruby-app"
       }
     }
 
