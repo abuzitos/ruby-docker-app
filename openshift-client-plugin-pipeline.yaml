@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    name: ruby-docker-app-openshift
+  name: ruby-docker-app-openshift
+spec:
+  source:
+    type: Git
+    git:
+      uri: https://github.com/abuzitos/ruby-docker-app.git
+  strategy:
+    type: JenkinsPipeline
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: Jenkinsfile.groovy
