@@ -1,20 +1,36 @@
-pipeline {
-  agent none
-  stages {
-    stage('requirements') {
-      steps {
-        sh 'echo \'requirements\''
+node {
+    stage('Initialize')
+    {
+      script {
+        echo "Initialize"
       }
     }
-    stage('build') {
-      steps {
-        sh 'echo \'build\''
+
+    stage('Checkout')
+    {
+      script {
+        echo "Checkout"
       }
     }
-    stage('test') {
-      steps {
-        sh 'echo \'test\''
+
+    stage('Build')
+    {
+      script {
+        echo "Build"
       }
     }
-  }
+
+    stage('Test')
+    {
+      script {
+        echo "Test"
+      }
+    }
+
+    stage('Deliver')
+    {
+      script {
+        echo "Deliver"
+      }
+    }
 }
