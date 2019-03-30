@@ -11,8 +11,8 @@ node('master') {
        stage('Initialize')
        {
          steps {
-           sh("echo 'Initialize'")
-           //sh "docker build ."
+           sh("Initialize")
+           sh("docker build .")
          }
        }
     }
