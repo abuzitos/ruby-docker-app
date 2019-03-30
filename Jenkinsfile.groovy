@@ -12,7 +12,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           //sh("docker build .")
           sh '''
-            ./usr/bin/bundle
+            ./bundle
           '''
         }
       }
