@@ -1,10 +1,6 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-#!/usr/bin/env groovy
-// Jenkinsfile
-// Build and test a Maven project
-
 node {
   deleteDir()
   env.PUPPET_INSTALL_VERSION = "1.8.0"
