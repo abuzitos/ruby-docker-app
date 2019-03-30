@@ -1,8 +1,7 @@
 pipeline {
 
     agent {
-    def dockerHome = tool '/var/run/docker.sock:/var/run/docker.sock'
-    env.PATH = "${dockerHome}/bin:${env.PATH}"
+      docker { image 'ruby' }
      }
 
     stages {
