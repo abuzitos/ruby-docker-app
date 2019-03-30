@@ -1,7 +1,7 @@
 pipeline {
 
     agent {
-      docker { image 'ruby:2.5' }
+      docker { image 'rhscl/ruby-25-rhel7' }
      }
 
     stages {
