@@ -3,9 +3,10 @@ import hudson.model.*
 
 node('master') {
     sh("@@@@@ your shell script @@@@@")
-    agent {
-      docker { image 'ruby' }
-     }
+
+    //agent {
+    //  docker { image 'ruby' }
+    //}
 
      stages {
        stage('Initialize')
