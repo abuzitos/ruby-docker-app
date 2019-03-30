@@ -7,6 +7,7 @@ node('docker') {
     }
 }
 
+/*
 pipeline {
 
     agent {
@@ -53,3 +54,4 @@ pipeline {
       }
     }
 }
+*/
