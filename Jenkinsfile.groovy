@@ -10,7 +10,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
-          sh("docker build .")
+          //sh("docker build .")
         }
       }
 
@@ -29,7 +29,7 @@ pipeline {
           sh("@@@@@@@@@@")
           sh("Build")
           sh("@@@@@@@@@@")
-          sh("docker run ruby-app")
+          //sh("docker run ruby-app")
         }
       }
 
