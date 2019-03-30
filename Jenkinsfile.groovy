@@ -1,9 +1,8 @@
-@Library('github.com/docker/jenkins-pipeline-scripts') _
-
 pipeline {
 
     agent {
-      docker { image 'ruby' }
+    def dockerHome = tool '/var/run/docker.sock:/var/run/docker.sock'
+    env.PATH = "${dockerHome}/bin:${env.PATH}"
      }
 
     stages {
