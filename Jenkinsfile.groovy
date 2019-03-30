@@ -2,9 +2,12 @@
 import hudson.model.*
 
 node {
-  stage 'Bundle Build'
-  withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
-    sh '''bundle'''
+  stages {
+    stage('Bundle Build') {
+      withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
+        sh '''bundle'''
+      }
+    }
   }
 }
 
