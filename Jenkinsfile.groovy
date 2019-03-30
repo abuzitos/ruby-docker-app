@@ -29,7 +29,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Build")
           sh("echo @@@@@@@@@@")
-          sh("/usr/local/bin/docker run ruby-app")
+          //sh("/usr/local/bin/docker run ruby-app")
         }
       }
 
