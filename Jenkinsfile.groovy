@@ -10,15 +10,12 @@ pipeline {
     */
 
     agent none
-    environment {
-        VERSION = sh(returnStdout: true, script: 'git describe --tags')
-    }
 
     stages {
       stage('Initialize')
       {
         steps {
-          sh "echo 'Initialize'"
+          sh("echo 'Initialize'")
           //sh "docker build ."
         }
       }
