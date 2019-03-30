@@ -1,7 +1,20 @@
 pipeline {
+
+    /*
     agent {
       docker { image 'ruby:2.5' }
      }
+     */
+     
+     node('docker') {
+         checkout scm
+         stage('Build') {
+             docker.image('ruby').inside {
+                 sh 'ruby --version'
+             }
+         }
+     }
+
     stages {
       stage('Initialize')
       {
