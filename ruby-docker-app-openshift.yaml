@@ -5,15 +5,7 @@ metadata:
     name: ruby-docker-app-openshift
   name: ruby-docker-app-openshift
 spec:
-  dockerImageRepository: "registry.access.redhat.com/openshift3/ruby-20-rhel7"
-  tags:
-    - name: "2.0"
-      annotations:
-        description: "Build and run Ruby 2.0 applications"
-        iconClass: "icon-ruby"
-        tags: "builder,ruby"
-        supports: "ruby:2.0,ruby"
-        version: "2.0"
+  dockerImageRepository: "rhscl/ruby-25-rhel7"
 spec:
   source:
     type: Git

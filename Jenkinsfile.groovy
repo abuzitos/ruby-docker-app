@@ -1,7 +1,7 @@
 pipeline {
 
     agent {
-      docker { image 'ruby:2.0' }
+      docker { image 'ruby:2.5' }
      }
 
     stages {
