@@ -1,6 +1,18 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
+def rvmSh(String rubyVersion, String cmd) {
+    def sourceRvm = 'source ~/.rvm/scripts/rvm'
+    def useRuby = "rvm use --install $rubyVersion"
+    sh "${sourceRvm}; ${useRuby}; $cmd"
+}
+
+node {
+    rvmSh 'ruby --version'
+}
+
+/*
+
 pipeline {
     agent any
     stages {
@@ -58,3 +70,5 @@ pipeline {
       }
     }
 }
+
+*/
