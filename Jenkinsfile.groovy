@@ -1,27 +1,27 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-node('master') {
-    sh("@@@@@ your shell script @@@@@")
+pipeline {
+  node('master') {
+      sh("@@@@@ your shell script @@@@@")
 
-    //agent {
-    //  docker { image 'ruby' }
-    //}
+      //agent {
+      //  docker { image 'ruby' }
+      //}
 
-     stages {
-       stage('Initialize')
-       {
-         steps {
-           sh("Initialize")
-           sh("docker build .")
+       stages {
+         stage('Initialize')
+         {
+           steps {
+             sh("Initialize")
+             sh("docker build .")
+           }
          }
-       }
-    }
+      }
+  }
 }
 
-pipeline {
-
-
+/*
 
     agent none
 
@@ -65,3 +65,4 @@ pipeline {
       }
     }
 }
+*/
