@@ -1,13 +1,6 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-node {
-    withRvm('ruby-2.3.1') {
-        sh 'ruby --version'
-        sh 'gem install rake'
-    }
-}
-
 def withRvm(String version, String gemset, Closure cl) {
     // First we have to amend the `PATH`.
     final RVM_HOME = '$HOME/.rvm'
@@ -39,6 +32,15 @@ def withRvm(String version, String gemset, Closure cl) {
         cl()
     }
 }
+
+
+node {
+    withRvm('ruby-2.3.1') {
+        sh 'ruby --version'
+        sh 'gem install rake'
+    }
+}
+
 
 
 /*
