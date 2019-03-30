@@ -1,10 +1,6 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-node('master') {
-    sh("your shell script")
-}
-
 pipeline {
 
     /*
@@ -23,7 +19,7 @@ pipeline {
       {
         steps {
           sh "echo 'Initialize'"
-          sh "docker build ."
+          //sh "docker build ."
         }
       }
 
@@ -38,7 +34,7 @@ pipeline {
       {
         steps {
           sh "echo 'Build'"
-          sh "docker run ruby-app"
+          //sh "docker run ruby-app"
         }
       }
 
