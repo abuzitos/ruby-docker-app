@@ -3,14 +3,19 @@ import hudson.model.*
 
 
 node {
-    rvmSh 'ruby --version'
-
-    def rvmSh(String rubyVersion, String cmd) {
-        def sourceRvm = 'source ~/.rvm/scripts/rvm'
-        def useRuby = "rvm use --install $rubyVersion"
-        sh "${sourceRvm}; ${useRuby}; $cmd"
+    stage ('Clone') {
+      checkout scm
     }
-
+    stage ('Build') {
+        sh gem install bundler
+        sh bundle install
+        sh cp config/database-gitlab.yml config/database.yml
+        sh bundle exec rake db:create db:migrate RAILS_ENV=test
+        sh bundle exec rake test
+        ....
+    }
+    stage ('Tests') {
+    }
 }
 
 /*
