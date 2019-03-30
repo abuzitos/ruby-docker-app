@@ -2,6 +2,7 @@
 import hudson.model.*
 
 pipeline {
+    agent any
     stages {
       stage('Initialize')
       {
