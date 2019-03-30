@@ -15,6 +15,7 @@ node('master') {
            //sh "docker build ."
          }
        }
+    }
 }
 
 pipeline {
