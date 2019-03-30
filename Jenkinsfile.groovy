@@ -1,11 +1,7 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-//pipeline {
-
-node('master') {
-    //agent none
-
+pipeline {
     stages {
       stage('Initialize')
       {
