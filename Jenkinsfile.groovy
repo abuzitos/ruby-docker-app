@@ -1,3 +1,5 @@
+@Library('github.com/docker/jenkins-pipeline-scripts') _
+
 pipeline {
 
     agent {
