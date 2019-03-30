@@ -40,7 +40,7 @@ pipeline {
           sh("echo Test")
           sh("echo @@@@@@@@@@")
 
-          withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
+          withEnv(["PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH", "RBENV_SHELL=sh"]) {
             sh("bundle")
           }
             //sh("bundle exec rspec spec")
