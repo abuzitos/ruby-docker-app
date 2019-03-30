@@ -3,13 +3,14 @@ import hudson.model.*
 
 node('master') {
     sh("@@@@@ your shell script @@@@@")
+    agent {
+      docker { image 'ruby' }
+     }
 }
 
 pipeline {
 
-    agent {
-      docker { image 'ruby' }
-     }
+
 
     //agent none
 
