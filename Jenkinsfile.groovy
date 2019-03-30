@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 import hudson.model.*
+export PATH="$HOME/.rbenv/bin:$PATH"
 
 pipeline {
     agent any
@@ -40,9 +41,7 @@ pipeline {
           sh("echo Test")
           sh("echo @@@@@@@@@@")
 
-          withEnv(["PATH=$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH", "RBENV_SHELL=sh"]) {
-            sh("bundle")
-          }
+          sh("bundle")
             //sh("bundle exec rspec spec")
         }
       }
