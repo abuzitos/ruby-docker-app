@@ -11,7 +11,9 @@ pipeline {
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
           //sh("docker build .")
-          sh("bundle")
+          bat '''
+            bundle
+          '''
         }
       }
 
