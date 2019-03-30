@@ -41,8 +41,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
 
           withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
-            sh '''#!/bin bash -l
-            bundle'''
+            sh("bundle")
           }
             //sh("bundle exec rspec spec")
         }
