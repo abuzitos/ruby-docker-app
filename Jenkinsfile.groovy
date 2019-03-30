@@ -2,7 +2,7 @@
 import hudson.model.*
 
 /* Jenkinsfile */
-node('docker-capable') {
+node {
  docker.image('rvm-image').inside {
  checkout scm
  sh 'bundle exec rake'
