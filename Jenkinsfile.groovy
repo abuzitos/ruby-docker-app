@@ -3,7 +3,7 @@ pipeline {
     agent {
         docker {
             image 'ruby:2.5'
-            label 'my-defined-label'
+            label 'Ruby 2.2'
             args  '-v /tmp:/tmp'
         }
     }
