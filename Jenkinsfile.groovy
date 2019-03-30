@@ -7,13 +7,11 @@ node('master') {
 
 pipeline {
 
-    /*
     agent {
       docker { image 'ruby' }
      }
-    */
 
-    #agent none
+    //agent none
 
     stages {
       stage('Initialize')
