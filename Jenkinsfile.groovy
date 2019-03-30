@@ -1,6 +1,15 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
+/* Jenkinsfile */
+node(‘docker-capable’) {
+ docker.image(‘rvm-image’).inside {
+ checkout scm
+ sh ‘bundle exec rake’
+ }
+}
+
+/*
 pipeline {
     agent any
     stages {
@@ -12,7 +21,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           //sh("docker build .")
           sh '''
-            bundle
+            /usr/bin/bundle
           '''
         }
       }
@@ -58,3 +67,4 @@ pipeline {
       }
     }
 }
+*/
