@@ -1,6 +1,10 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
+node('master') {
+    sh("@@@@@ your shell script @@@@@")
+}
+
 pipeline {
 
     /*
@@ -9,10 +13,7 @@ pipeline {
      }
     */
 
-    node('master') {
-        sh("@@@@@ your shell script @@@@@")
-    }
-    agent none
+    #agent none
 
     stages {
       stage('Initialize')
