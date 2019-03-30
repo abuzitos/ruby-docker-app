@@ -3,7 +3,7 @@ import hudson.model.*
 
 //pipeline {
 
-node {
+node('master') {
     agent none
 
     stages {
