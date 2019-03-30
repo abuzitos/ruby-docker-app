@@ -1,9 +1,13 @@
 pipeline {
 
+    /*
     agent {
-      docker { image 'rhscl/ruby-25-rhel7' }
-    }
+      docker { image 'ruby' }
+     }
+    */
 
+    agent none
+    
     stages {
       stage('Initialize')
       {
