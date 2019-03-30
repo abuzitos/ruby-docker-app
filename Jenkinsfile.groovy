@@ -4,7 +4,7 @@ import hudson.model.*
 //pipeline {
 
 node('master') {
-    agent none
+    //agent none
 
     stages {
       stage('Initialize')
