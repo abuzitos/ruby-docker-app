@@ -1,3 +1,10 @@
+#!/usr/bin/env groovy
+import hudson.model.*
+
+node('master') {
+    sh("your shell script")
+}
+
 pipeline {
 
     /*
@@ -7,7 +14,10 @@ pipeline {
     */
 
     agent none
-    
+    environment {
+        VERSION = sh(returnStdout: true, script: 'git describe --tags')
+    }
+
     stages {
       stage('Initialize')
       {
