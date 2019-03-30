@@ -5,8 +5,6 @@ metadata:
     name: ruby-docker-app-openshift
   name: ruby-docker-app-openshift
 spec:
-  dockerImageRepository: "rhscl/ruby-25-rhel7"
-spec:
   source:
     type: Git
     git:
