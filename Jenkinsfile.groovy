@@ -2,11 +2,17 @@
 import hudson.model.*
 
 /* Jenkinsfile */
-node(‘docker-capable’) {
- docker.image(‘rvm-image’).inside {
+node('docker-capable') {
+ docker.image('rvm-image').inside {
  checkout scm
- sh ‘bundle exec rake’
+ sh 'bundle exec rake'
  }
+}
+
+node {
+    /* ... */
+    stage 'Build Docker image'
+    def image = docker.build('jcsirot/atmo-calc:snapshot', '.')
 }
 
 /*
