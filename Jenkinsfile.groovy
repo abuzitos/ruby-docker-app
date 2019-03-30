@@ -7,9 +7,9 @@ pipeline {
       stage('Initialize')
       {
         steps {
-          sh("@@@@@@@@@@")
-          sh("Initialize")
-          sh("@@@@@@@@@@")
+          sh("echo @@@@@@@@@@")
+          sh("echo Initialize")
+          sh("echo @@@@@@@@@@")
           //sh "docker build ."
         }
       }
