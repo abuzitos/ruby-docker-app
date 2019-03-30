@@ -1,16 +1,6 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-node {
-  stages {
-    stage('Bundle Build') {
-      withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
-        sh '''bundle'''
-      }
-    }
-  }
-}
-
 pipeline {
     agent any
     stages {
@@ -49,7 +39,9 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Test")
           sh("echo @@@@@@@@@@")
-          sh("bundle exec rspec spec")
+          withEnv(['PATH=/usr/bin:/bin:/usr/sbin:/:sbin/usr/local/bin:$PATH']) {
+            sh("bundle exec rspec spec")
+          }
         }
       }
 
