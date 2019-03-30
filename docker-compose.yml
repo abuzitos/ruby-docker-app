@@ -1,0 +1,25 @@
+version: "3.5"
+
+services:
+
+    jenkins:
+        image: quay.io/shazchaudhry/docker-jenkins
+        user: root
+        privileged: true
+        environment:
+            - JENKINS_OPTS='--prefix=/jenkins'
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - jenkins_home:/var/jenkins_home
+        secrets:
+            - jenkins-user
+            - jenkins-pass
+
+volumes:
+    jenkins_home:
+
+secrets:
+    jenkins-pass:
+        external: true
+    jenkins-user:
+        external: true
