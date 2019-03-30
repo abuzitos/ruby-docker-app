@@ -17,28 +17,28 @@ pipeline {
       stage('Checkout')
       {
         steps {
-          sh("@@@@@@@@@@")
-          sh("Checkout")
-          sh("@@@@@@@@@@")
+          sh("echo @@@@@@@@@@")
+          sh("echo Checkout")
+          sh("echo @@@@@@@@@@")
         }
       }
 
       stage('Build')
       {
         steps {
-          sh("@@@@@@@@@@")
-          sh("Build")
-          sh("@@@@@@@@@@")
-          //sh("docker run ruby-app")
+          sh("echo @@@@@@@@@@")
+          sh("echo Build")
+          sh("echo @@@@@@@@@@")
+          sh("/usr/local/bin/docker run ruby-app")
         }
       }
 
       stage('Test')
       {
         steps {
-          sh("@@@@@@@@@@")
-          sh("Test")
-          sh("@@@@@@@@@@")
+          sh("echo @@@@@@@@@@")
+          sh("echo Test")
+          sh("echo @@@@@@@@@@")
           sh("bundle exec rspec spec")
         }
       }
@@ -46,9 +46,9 @@ pipeline {
       stage('Deliver')
       {
         steps {
-          sh("@@@@@@@@@@")
-          sh("Deliver")
-          sh("@@@@@@@@@@")
+          sh("echo @@@@@@@@@@")
+          sh("echo Deliver")
+          sh("echo @@@@@@@@@@")
         }
       }
     }
