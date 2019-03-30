@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env groovy
+import hudson.model.*
 
 pipeline {
 
