@@ -1,95 +1,16 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-
-stage('Install dependencies') {
-    node {
-        checkout scm
-        withRvm('ruby-2.3.1') {
-            sh 'bundle -v || gem install bundler'
-            sh 'bundle install'
-            stash includes: 'Gemfile.lock, .bundle', name: 'bundle'
-        }
+node {
+    withRvm('ruby-2.3.1') {
+        sh 'ruby --version'
+        sh 'gem install rake'
     }
 }
 
-stage('Style checks') {
-    parallel(Rubocop: {
-        node {
-          checkout scm
-            withRvm('ruby-2.3.1') {
-                unstash 'bundle'
-                bundle_exec 'rake style:rubocop'
-            }
-        }
-    })
-}
-
-stage('Tests') {
-    parallel(Unit: {
-        node {
-            checkout scm
-            withRvm('ruby-2.3.1') {
-                unstash 'bundle'
-                bundle_exec 'rake spec:unit'
-            }
-        }
-    }, Integration: {
-        node {
-            checkout scm
-            withRvm('ruby-2.3.1') {
-                unstash 'bundle'
-                bundle_exec 'rake spec:integration'
-            }
-        }
-    }, System: {
-        node {
-            checkout scm
-            withRvm('ruby-2.3.1') {
-                unstash 'bundle'
-                bundle_exec 'rake spec:system'
-            }
-        }
-    })
-}
-
-if (isRelease()) {
-    stage('Publish') {
-        echo 'Would publish to rubygems.org' // TODO
-        slackSend "Published ${name()} gem version ${version()} to the rubygems.org", color: 'good'
-    }
-}
-
-def bundle_exec(command) {
-    sh "bundle exec ${command}"
-}
-
-def isRelease() {
-    false // FIXME: Building git tags is not yet supported (JENKINS-34395)
-}
-
-def name() {
-    node {
-        def matcher = readFile('packer-client.gemspec') =~ "spec.name += '(.+)'"
-        matcher ? matcher[0][1] : null
-    }
-}
-
-def version() {
-    node {
-        def matcher = readFile('lib/packer/version.rb') =~ "VERSION = '(.+)'"
-        matcher ? matcher[0][1] : null
-    }
-}
-
-def withRvm(version, cl) {
-    withRvm(version, "executor-${env.EXECUTOR_NUMBER}") {
-        cl()
-    }
-}
-
-def withRvm(version, gemset, cl) {
-    RVM_HOME='$HOME/.rvm'
+def withRvm(String version, String gemset, Closure cl) {
+    // First we have to amend the `PATH`.
+    final RVM_HOME = '$HOME/.rvm'
     paths = [
         "$RVM_HOME/gems/$version@$gemset/bin",
         "$RVM_HOME/gems/$version@global/bin",
@@ -98,9 +19,12 @@ def withRvm(version, gemset, cl) {
         "${env.PATH}"
     ]
     def path = paths.join(':')
+    // First, let's make sure Ruby version is present.
     withEnv(["PATH=${env.PATH}:$RVM_HOME", "RVM_HOME=$RVM_HOME"]) {
-        sh "#!/bin/bash\nset +x; source $RVM_HOME/scripts/rvm; rvm use --create --install --binary $version@$gemset"
+        // Having `rvm` command available, `rvm use` can be used directly:
+        sh "set +x; source $RVM_HOME/scripts/rvm; rvm use --create --install --binary $version@$gemset"
     }
+    // Because we've just made sure Ruby is installed and Gemset is present, Ruby env vars can be exported just as `rvm use` would set them.
     withEnv([
         "PATH=$path",
         "GEM_HOME=$RVM_HOME/gems/$version@$gemset",
@@ -109,9 +33,13 @@ def withRvm(version, gemset, cl) {
         "IRBRC=$RVM_HOME/rubies/$version/.irbrc",
         "RUBY_VERSION=$version"
     ]) {
+        // `rvm` can't tell if `rvm use` was run or the env vars were set manually.
+        sh 'rvm info'
+        sh 'ruby --version'
         cl()
     }
 }
+
 
 /*
 
