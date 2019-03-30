@@ -6,6 +6,15 @@ node('master') {
     agent {
       docker { image 'ruby' }
      }
+
+     stages {
+       stage('Initialize')
+       {
+         steps {
+           sh("echo 'Initialize'")
+           //sh "docker build ."
+         }
+       }
 }
 
 pipeline {
