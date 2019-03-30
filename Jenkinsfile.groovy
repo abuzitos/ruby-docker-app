@@ -2,7 +2,7 @@ pipeline {
 
     agent {
       docker { image 'rhscl/ruby-25-rhel7' }
-     }
+    }
 
     stages {
       stage('Initialize')
