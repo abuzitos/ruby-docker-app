@@ -11,7 +11,9 @@ pipeline {
       stage('Initialize')
       {
         steps {
+          sh("@@@@@@@@@@")
           sh("Initialize")
+          sh("@@@@@@@@@@")
           //sh "docker build ."
         }
       }
@@ -19,14 +21,18 @@ pipeline {
       stage('Checkout')
       {
         steps {
-          sh "echo 'Checkout'"
+          sh("@@@@@@@@@@")
+          sh("Checkout")
+          sh("@@@@@@@@@@")
         }
       }
 
       stage('Build')
       {
         steps {
-          sh "echo 'Build'"
+          sh("@@@@@@@@@@")
+          sh("Build")
+          sh("@@@@@@@@@@")
           //sh "docker run ruby-app"
         }
       }
@@ -34,15 +40,19 @@ pipeline {
       stage('Test')
       {
         steps {
-          sh "echo 'Test'"
-          sh "bundle exec rspec spec"
+          sh("@@@@@@@@@@")
+          sh("Test")
+          sh("@@@@@@@@@@")
+          sh("bundle exec rspec spec")
         }
       }
 
       stage('Deliver')
       {
         steps {
-          sh "echo 'Deliver'"
+          sh("@@@@@@@@@@")
+          sh("Deliver")
+          sh("@@@@@@@@@@")
         }
       }
     }
