@@ -1,8 +1,9 @@
 #!/usr/bin/env groovy
 import hudson.model.*
 
-pipeline {
+//pipeline {
 
+node {
     agent none
 
     stages {
