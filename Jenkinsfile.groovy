@@ -1,4 +1,4 @@
-node('docker') {
+node('docker-slave') {
     checkout scm
     stage('Build') {
         docker.image('ruby').inside {
