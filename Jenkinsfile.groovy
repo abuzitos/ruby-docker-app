@@ -111,6 +111,33 @@ void actualTest()
                     def objs = openshift.create( bc )
                     objs.describe()
 
+                    // Filter created objects and create a selector which selects only the new DeploymentConfigs
+                    def dcs = objects.narrow("dc")
+                    echo "Database will run in deployment config: ${dcs.name()}"
+                    // Find a least one pod related to the DeploymentConfig and wait it satisfies a condition
+                    dcs.related('pods').untilEach(1) {
+                                            // untilEach only terminates when each selected item causes the body to return true
+                                            if (it.object().status.phase != 'Pending') {
+                                            // some example debug of the pod in question
+                                                shortname = it.object().metadata.name
+                                                echo openshift.rsh("${shortname}", "ps ax").out
+                                                return true;
+                                            }
+                                            return false;
+                    }
+
+                    // Print out all pods created by the DC
+                    echo "Template created pods: ${dcs.related('pods').names()}"
+
+                    // Show how we can use labels to select as well
+                    echo "Finding dc using labels instead: ${openshift.selector('dc',[mylabel:'myvalue']).names()}"
+
+                    echo "DeploymentConfig description"
+                    dcs.describe()
+                    echo "DeploymentConfig history"
+                    dcs.rollout().history()
+
+
                     def rubySelector = openshift.selector("bc", "ruby")
                     def builds
                     try {
@@ -118,7 +145,7 @@ void actualTest()
                         builds = rubySelector.related( "builds" )
                     } catch (Throwable t) {
                         // The selector returned from newBuild will select all objects created by the operation
-                        nb = openshift.newBuild( "https://github.com/openshift/ruby-hello-world", "--name=ruby" )
+                        nb = openshift.newBuild( "https://github.com/abuzitos/ruby-docker-app", "--name=ruby" )
 
                         // Print out information about the objects created by newBuild
                         echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
