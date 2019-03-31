@@ -62,7 +62,15 @@ pipeline {
 }
 
 void actualTest() {
-// create single object in array
+    try {
+        timeout(time: 20, unit: 'MINUTES') {
+            // Select the default cluster
+            openshift.withCluster() {
+                openshift.withProject() {
+                    // Output the url of the currently selected cluster
+                    echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
+
+                    // create single object in array
                     def bc = [[
                         "kind":"BuildConfig",
                         "apiVersion":"v1",
@@ -97,4 +105,8 @@ void actualTest() {
                     ]
                     def objs = openshift.create( bc )
                     objs.describe()
+                }
+            }
+        }
+    }
 }
