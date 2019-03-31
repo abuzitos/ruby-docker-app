@@ -23,6 +23,7 @@ pipeline {
                 sh("echo @@@@@@@@@@")
                 sh("echo Initialize")
                 sh("echo @@@@@@@@@@")
+                actualTest()
             }
         }
       }
@@ -58,4 +59,42 @@ pipeline {
         }
       }
     }
+}
+
+void actualTest() {
+// create single object in array
+                    def bc = [[
+                        "kind":"BuildConfig",
+                        "apiVersion":"v1",
+                        "metadata":[
+                            "name":"test",
+                            "labels":[
+                                "name":"test"
+                            ]
+                        ],
+                        "spec":[
+                            "triggers":[],
+                            "source":[
+                                "type":"Binary"
+                            ],
+                            "strategy":[
+                                "type":"Source",
+                                "sourceStrategy":[
+                                    "from":[
+                                        "kind":"DockerImage",
+                                        "name":"centos/ruby-22-centos7"
+                                    ]
+                                ]
+                            ],
+                            "output":[
+                                "to":[
+                                    "kind":"ImageStreamTag",
+                                    "name":"test:latest"
+                                ]
+                            ]
+                        ]
+                      ]
+                    ]
+                    def objs = openshift.create( bc )
+                    objs.describe()
 }
