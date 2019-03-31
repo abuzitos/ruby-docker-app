@@ -10,6 +10,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
+          sh(apt update && apt install -y docker)
           sh("docker build .")
           sh '''
             ./bundle
