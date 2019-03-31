@@ -110,6 +110,23 @@ void actualTest()
                     ]
                     def objs = openshift.create( bc )
                     objs.describe()
+
+                    def rubySelector = openshift.selector("bc", "ruby")
+                    def builds
+                    try {
+                        rubySelector.object()
+                        builds = rubySelector.related( "builds" )
+                    } catch (Throwable t) {
+                        // The selector returned from newBuild will select all objects created by the operation
+                        nb = openshift.newBuild( "https://github.com/abuzitos/ruby-docker-app.git", "--name=ruby" )
+
+                        // Print out information about the objects created by newBuild
+                        echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
+
+                        // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
+                        builds = nb.narrow("bc").related( "builds" )
+
+                    }
                 }
             }
         }
