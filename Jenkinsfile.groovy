@@ -110,7 +110,8 @@ void actualTest()
                     ]
                     def objs = openshift.create( bc )
                     objs.describe()
-                    openshift.delete("bc", "test")
+                    //openshift.delete("bc", "test")
+                    openshift.delete(bc)
 
 
 
