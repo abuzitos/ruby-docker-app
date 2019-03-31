@@ -11,8 +11,7 @@ pipeline {
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
           sh '''
-            apt-get update
-            apt-get install -y docker
+            yum install -y docker
             docker build .
           '''
         }
