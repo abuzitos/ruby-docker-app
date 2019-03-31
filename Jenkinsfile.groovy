@@ -40,14 +40,6 @@ void actualTest() {
         timeout(time: 20, unit: 'MINUTES') {
             // Select the default cluster
             openshift.withCluster() {
-                // Test openshift.patch and selector.patch
-                /*openshift.withProject() {
-                    openshift.create("https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json")
-                    openshift.newApp("nodejs-example")
-                    openshift.patch("dc/nodejs-example", '\'{"spec":{"strategy":{"type":"Recreate"}}}\'')
-                    def mySelector = openshift.selector("bc/nodejs-example")
-                    mySelector.patch('\'{"spec":{"source":{"git":{"ref": "development"}}}}\'')
-                }*/
                 // Select the default project
                 openshift.withProject() {
 
@@ -61,14 +53,6 @@ void actualTest() {
 
                     def saSelector1 = openshift.selector( "serviceaccount" )
                     saSelector1.describe()
-
-                    def templateSelector = openshift.selector( "template", "mongodb-ephemeral")
-
-                    def templateExists = templateSelector.exists()
-
-                    def templateGeneratedSelector = openshift.selector(["dc/mongodb", "service/mongodb", "secret/mongodb"])
-
-                    def objectsGeneratedFromTemplate = templateGeneratedSelector.exists()
 
                     // create single object in array
                     def bc = [[
@@ -114,13 +98,6 @@ void actualTest() {
                     openshift.create("configmap", "foo")
                     openshift.delete("configmap/foo")
 
-                    def template
-                    if (!templateExists) {
-                        template = openshift.create('https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json').object()
-                    } else {
-                        template = templateSelector.object()
-                    }
-
                     // Explore the Groovy object which models the OpenShift template as a Map
                     echo "Template contains ${template.parameters.size()} parameters"
 
@@ -137,22 +114,6 @@ void actualTest() {
                     }
 
                     def objects
-                    def verb
-                    if (!objectsGeneratedFromTemplate) {
-                        verb = "Created"
-                        // Serialize the objects and pass them to the create API.
-                        // We could also pass JSON/YAML directly; openshift.create(readFile('some.json'))
-                        objects = openshift.create(objectModels)
-                    } else {
-                        verb = "Found"
-                        objects = templateGeneratedSelector
-                    }
-
-                    // Create returns a selector which will always select the objects created
-                    objects.withEach {
-                        // Each loop binds the variable 'it' to a selector which selects a single object
-                        echo "${verb} ${it.name()} from template with labels ${it.object().metadata.labels}"
-                    }
 
                     // Filter created objects and create a selector which selects only the new DeploymentConfigs
                     def dcs = objects.narrow("dc")
