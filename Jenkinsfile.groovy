@@ -52,23 +52,23 @@ void actualTest() {
                 openshift.withProject() {
 
                     // Output the url of the currently selected cluster
-                    echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
+                    //echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
 
                     // Test selector.annotate
-                    def railsTemplate = openshift.create("https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json")
-                    railsTemplate.annotate([key1:"value1", key2:"value2"])
-                    railsTemplate.delete()
+                    //def railsTemplate = openshift.create("https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json")
+                    //railsTemplate.annotate([key1:"value1", key2:"value2"])
+                    //railsTemplate.delete()
 
-                    def saSelector1 = openshift.selector( "serviceaccount" )
-                    saSelector1.describe()
+                    //def saSelector1 = openshift.selector( "serviceaccount" )
+                    //saSelector1.describe()
 
-                    def templateSelector = openshift.selector( "template", "mongodb-ephemeral")
+                    //def templateSelector = openshift.selector( "template", "mongodb-ephemeral")
 
-                    def templateExists = templateSelector.exists()
+                    //def templateExists = templateSelector.exists()
 
-                    def templateGeneratedSelector = openshift.selector(["dc/mongodb", "service/mongodb", "secret/mongodb"])
+                    //def templateGeneratedSelector = openshift.selector(["dc/mongodb", "service/mongodb", "secret/mongodb"])
 
-                    def objectsGeneratedFromTemplate = templateGeneratedSelector.exists()
+                    //def objectsGeneratedFromTemplate = templateGeneratedSelector.exists()
 
                     // create single object in array
                     def bc = [[
@@ -108,24 +108,24 @@ void actualTest() {
                     openshift.delete("bc", "test")
                     // switch to delete below when v1.0.10 is available in the image
                     //openshift.delete(bc)
-                    openshift.create("configmap", "foo")
-                    openshift.create("configmap", "bar")
-                    openshift.delete("configmap/foo", "configmap/bar")
-                    openshift.create("configmap", "foo")
-                    openshift.delete("configmap/foo")
+                    //openshift.create("configmap", "foo")
+                    //openshift.create("configmap", "bar")
+                    //openshift.delete("configmap/foo", "configmap/bar")
+                    //openshift.create("configmap", "foo")
+                    //openshift.delete("configmap/foo")
 
-                    def template
-                    if (!templateExists) {
-                        template = openshift.create('https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json').object()
-                    } else {
-                        template = templateSelector.object()
-                    }
+                    //def template
+                    //if (!templateExists) {
+                    //    template = openshift.create('https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json').object()
+                    //} else {
+                    //    template = templateSelector.object()
+                    //}
 
                     // Explore the Groovy object which models the OpenShift template as a Map
-                    echo "Template contains ${template.parameters.size()} parameters"
+                    //echo "Template contains ${template.parameters.size()} parameters"
 
                     // For fun, modify the template easily while modeled in Groovy
-                    template.labels["mylabel"] = "myvalue"
+                    //template.labels["mylabel"] = "myvalue"
 
                     // verify we can handle unquoted param values with spaces
                     //def muser = "All Users"
@@ -189,10 +189,10 @@ void actualTest() {
                     }
 
                     // Print out all pods created by the DC
-                    echo "Template created pods: ${dcs.related('pods').names()}"
+                    //echo "Template created pods: ${dcs.related('pods').names()}"
 
                     // Show how we can use labels to select as well
-                    echo "Finding dc using labels instead: ${openshift.selector('dc',[mylabel:'myvalue']).names()}"
+                    //echo "Finding dc using labels instead: ${openshift.selector('dc',[mylabel:'myvalue']).names()}"
 
                     echo "DeploymentConfig description"
                     dcs.describe()
