@@ -10,7 +10,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
-          //sh("docker build .")
+          sh("docker build .")
           sh '''
             ./bundle
           '''
