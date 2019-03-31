@@ -11,7 +11,7 @@ pipeline {
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
           sh '''
-            yum install -y docker
+            sudo yum install -y docker
             docker build .
           '''
         }
