@@ -30,7 +30,7 @@ pipeline {
     }
 }
 
-void actualTest() {*/
+void actualTest() {
     /**
      * This script does nothing in particular,
      * but is meant to show actual usage of most of the API.
