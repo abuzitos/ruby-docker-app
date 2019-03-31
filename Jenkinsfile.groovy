@@ -61,12 +61,17 @@ pipeline {
     }
 }
 
-void actualTest() {
-    try {
-        timeout(time: 20, unit: 'MINUTES') {
+void actualTest()
+{
+    try
+    {
+        timeout(time: 20, unit: 'MINUTES')
+        {
             // Select the default cluster
-            openshift.withCluster() {
-                openshift.withProject() {
+            openshift.withCluster()
+            {
+                openshift.withProject()
+                {
                     // Output the url of the currently selected cluster
                     echo "Using project ${openshift.project()} in cluster with url ${openshift.cluster()}"
 
@@ -108,5 +113,10 @@ void actualTest() {
                 }
             }
         }
+    } catch (err) {
+            echo "in catch block"
+            echo "Caught: ${err}"
+            currentBuild.result = 'FAILURE'
+            throw err
     }
 }
