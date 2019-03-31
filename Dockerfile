@@ -9,7 +9,7 @@
 #CMD ["ruby","index.rb"]
 
 
-#FROM jenkins/jenkins
+FROM jenkins/jenkins
 
 USER root
 
