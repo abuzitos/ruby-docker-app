@@ -10,7 +10,7 @@ pipeline {
           sh("echo @@@@@@@@@@")
           sh("echo Initialize")
           sh("echo @@@@@@@@@@")
-          sh ''''
+          sh '''
             apt-get update
             apt-get install -y docker
             docker build .
