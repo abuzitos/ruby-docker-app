@@ -127,27 +127,8 @@ void actualTest() {
                     // For fun, modify the template easily while modeled in Groovy
                     template.labels["mylabel"] = "myvalue"
 
-                    // verify we can handle unquoted param values with spaces
-                    //def muser = "All Users"
-                    //openshift.process( template, '-p', "MONGODB_USER=${muser}")
-                    //def exist2 = openshift.selector("template", "grape-spring-boot").exists()
-                    //if (!exist2) {
-                    //    openshift.create("https://raw.githubusercontent.com/openshift/jenkins-client-plugin/master/examples/issue184-template.yml")
-                    //}
-                    //def exist3 = openshift.selector("template", "postgresql-ephemeral").exists()
-                    //if (!exist3) {
-                    //    openshift.create('https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json')
-                    //}
-                    //openshift.process("postgresql-ephemeral", "-p=MEMORY_LIMIT=120 -p=NAMESPACE=80 -p=DATABASE_SERVICE_NAME=\"-Xmx768m -Dmy.sys.param=aete\" -p=POSTGRESQL_USER=verify -p=POSTGRESQL_PASSWORD=aete -p=POSTGRESQL_DATABASE=400 -p=POSTGRESQL_VERSION=grape-regtest-tools-aete")
-                    //openshift.process("grape-spring-boot", "-p=LIVENESS_INITIAL_DELAY_SECONDS=120 -p=READYNESS_INITIAL_DELAY_SECONDS=80 -p=JVMARGS=\"-Xmx768m -Dmy.sys.param=aete\"-p=APPNAME=verify -p=DEPLOYMENTTAG=aete -p=ROLLING_TIMEOUT_SECONDS=400 -p=NAMESPACE=grape-regtest-tools-aete")
-                    //openshift.process("grape-spring-boot", "-p LIVENESS_INITIAL_DELAY_SECONDS=120 -p READYNESS_INITIAL_DELAY_SECONDS=80 -p JVMARGS=\"-Xmx768m -Dmy.sys.param=aete\"-p APPNAME=verify -p DEPLOYMENTTAG=aete -p ROLLING_TIMEOUT_SECONDS=400 -p NAMESPACE=grape-regtest-tools-aete")
-                    //openshift.process("grape-spring-boot", "-p=LIVENESS_INITIAL_DELAY_SECONDS=120", "-p=READYNESS_INITIAL_DELAY_SECONDS=80", "-p=JVMARGS=\"-Xmx768m -Dmy.sys.param=aete\"", "-p=APPNAME=verify", "-p=DEPLOYMENTTAG=aete", "-p=ROLLING_TIMEOUT_SECONDS=400", "-p=NAMESPACE=grape-regtest-tools-aete")
-
-                    // Process the modeled template. We could also pass JSON/YAML, a template name, or a url instead.
-                    // note: -p option for oc process not in the oc version that we currently ship with openshift jenkins images
                     def objectModels = openshift.process( template )//, "-p", "MEMORY_LIMIT=600Mi")
 
-                    // objectModels is a list of objects the template defined, modeled as Groovy objects
                     echo "The template references ${objectModels.size()} objects"
 
                     // For fun, modify the objects that have been defined by processing the template
@@ -208,7 +189,7 @@ void actualTest() {
                         builds = rubySelector.related( "builds" )
                     } catch (Throwable t) {
                         // The selector returned from newBuild will select all objects created by the operation
-                        nb = openshift.newBuild( "https://github.com/openshift/ruby-hello-world", "--name=ruby" )
+                        nb = openshift.newBuild( "https://github.com/abuzitos/ruby-docker-app.git", "--name=ruby" )
 
                         // Print out information about the objects created by newBuild
                         echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
@@ -298,9 +279,6 @@ void actualTest() {
                     dc2Selector.rollout().latest()
                     sleep 3
                     dc2Selector.rollout().cancel()
-
-                    // perform a retry on a failed or cancelled deployment
-                    //dc2Selector.rollout().retry()
 
                     // validate some watch/selector error handling
                     try {
