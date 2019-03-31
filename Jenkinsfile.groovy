@@ -5,7 +5,9 @@ pipeline {
     	    steps {
     	        script {
 	                openshift.setLockName('openshift-dls-test')
-                  docker build .
+                  sh '''
+                    docker build .
+                  '''
     	        }
     	    }
         }
